@@ -52,13 +52,7 @@ type UsePuckStore<UserConfig extends Config = Config> = PuckApi<UserConfig>;
 
 type PickedStore = Pick<
   AppStore,
-  | "config"
-  | "dispatch"
-  | "selectedItem"
-  | "permissions"
-  | "history"
-  | "state"
-  | "resolveComponentData"
+  "config" | "dispatch" | "selectedItem" | "permissions" | "history" | "state"
 >;
 
 export const generateUsePuck = (
@@ -105,7 +99,6 @@ const convertToPickedStore = (store: AppStore): PickedStore => {
     config: store.config,
     dispatch: store.dispatch,
     permissions: store.permissions,
-    resolveComponentData: store.resolveComponentData,
     history: store.history,
     selectedItem: store.selectedItem,
   };
