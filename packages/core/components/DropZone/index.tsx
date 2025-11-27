@@ -49,6 +49,7 @@ import { useFieldTransforms } from "../../lib/field-transforms/use-field-transfo
 import { getInlineTextTransform } from "../../lib/field-transforms/default-transforms/inline-text-transform";
 import { getSlotTransform } from "../../lib/field-transforms/default-transforms/slot-transform";
 import { FieldTransforms } from "../../types/API/FieldTransforms";
+import { MemoizeComponent } from "../MemoizeComponent";
 
 const getClassName = getClassNameFactory("DropZone", styles);
 
@@ -219,7 +220,7 @@ const DropZoneChild = ({
 
   if (!item) return;
 
-  let Render = componentConfig
+  const Render = componentConfig
     ? componentConfig.render
     : () => (
         <div style={{ padding: 48, textAlign: "center" }}>
@@ -249,15 +250,13 @@ const DropZoneChild = ({
       {(dragRef) => {
         if (componentConfig?.inline && !isInserting) {
           return (
-            <>
-              <Render
-                {...transformedProps}
-                puck={{
-                  ...transformedProps.puck,
-                  dragRef,
-                }}
-              />
-            </>
+            <MemoizeComponent
+              Component={Render}
+              componentProps={{
+                ...transformedProps,
+                puck: { ...transformedProps.puck, dragRef },
+              }}
+            />
           );
         }
 
@@ -272,7 +271,10 @@ const DropZoneChild = ({
                 }
               />
             ) : (
-              <Render {...transformedProps} />
+              <MemoizeComponent
+                Component={Render}
+                componentProps={transformedProps}
+              />
             )}
           </div>
         );
