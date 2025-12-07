@@ -116,6 +116,7 @@
     "@tiptap/html": "^3.11.1",
     "@tiptap/pm": "^3.11.1",
     "@tiptap/react": "^3.11.1",
+    "classnames": "^2.5.1",
     "deep-diff": "^1.0.2",
     "fast-equals": "5.2.2",
     "flat": "^5.0.2",
